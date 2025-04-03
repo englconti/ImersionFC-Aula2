@@ -11,7 +11,22 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb0B1c2VyLmNvbSIsIm5hbWUiOiJMZW8iLCJpYXQiOjE3NDM2NDMyMjAsImV4cCI6MTc0MzY1MDQyMH0.DFhTtHgXxwFdB-vgwFMIOe4QhPhi1CfXPngpgjs4vtc
 
 ###
 
-GET http://localhost:3000/users/46897654-8d10-435d-8460-52aed625c11f
+GET http://localhost:3000/users/f5b53f07-34db-4151-a79d-8f4bd0411786
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb0B1c2VyLmNvbSIsIm5hbWUiOiJMZW8iLCJpYXQiOjE3NDM2NDMyMjAsImV4cCI6MTc0MzY1MDQyMH0.DFhTtHgXxwFdB-vgwFMIOe4QhPhi1CfXPngpgjs4vtc
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "leo@user.com",
+    "password": "aaaa"
+}
+
+###
+
