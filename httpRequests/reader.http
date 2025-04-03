@@ -1,0 +1,41 @@
+### login as admin
+# @name adminLogin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@user.com",
+    "password": "admin"
+}
+
+###
+@adminToken = {{adminLogin.response.body.access_token}}
+
+### create reader
+POST http://localhost:3000/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "name": "Reader1",
+    "email": "reader1@user.com",
+    "password": "aaaa",
+    "role": "READER"
+}
+
+### login as reader
+# @name readerLogin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "reader1@user.com",
+    "password": "aaaa"
+}
+
+###
+@readerToken = {{readerLogin.response.body.access_token}}
+
+### get posts
+GET http://localhost:3000/posts
+Authorization: Bearer {{readerToken}}
