@@ -26,8 +26,7 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
-    // o @Body aqui ja pega o corpo da requisição e transforma em um objeto javascript
-    return this.usersService.create(createUserDto);
+    return this.usersService.create(createUserDto, req);
   }
 
   @Get()

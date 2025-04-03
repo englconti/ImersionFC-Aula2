@@ -17,8 +17,8 @@ Authorization: Bearer {{adminToken}}
 Content-Type: application/json
 
 {
-    "name": "Reader1",
-    "email": "reader1@user.com",
+    "name": "Reader3",
+    "email": "reader3@user.com",
     "password": "aaaa",
     "role": "READER"
 }
@@ -29,7 +29,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "reader1@user.com",
+    "email": "reader3@user.com",
     "password": "aaaa"
 }
 
@@ -39,3 +39,29 @@ Content-Type: application/json
 ### get posts
 GET http://localhost:3000/posts
 Authorization: Bearer {{readerToken}}
+
+
+### create post
+POST http://localhost:3000/posts
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "title": "Post 1",
+    "content": "Content one",
+    "published": true
+}
+
+### create user as reader
+POST http://localhost:3000/users
+Authorization: Bearer {{readerToken}}
+Content-Type: application/json
+
+{
+    "name": "testeee",
+    "email": "leo222@user.com",
+    "password": "aaaa",
+    "role": "WRITER"
+}
+
+###

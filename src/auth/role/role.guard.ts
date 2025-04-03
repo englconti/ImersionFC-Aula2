@@ -5,14 +5,17 @@ import { Roles } from '@prisma/client';
 import { Request } from 'express';
 
 @Injectable()
-export class RoleGuard implements CanActivate { // implements CanActivate is a class that is used to implement the CanActivate interface
+export class RoleGuard implements CanActivate {
+  // implements CanActivate is a class that is used to implement the CanActivate interface
   constructor(private reflector: Reflector) {}
 
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-
-    const requiredRoles = this.reflector.get<Roles[]>('roles', context.getHandler());
+    const requiredRoles = this.reflector.get<Roles[]>(
+      'roles',
+      context.getHandler(),
+    );
 
     if (!requiredRoles) {
       return true;
@@ -21,6 +24,8 @@ export class RoleGuard implements CanActivate { // implements CanActivate is a c
     const request: Request = context.switchToHttp().getRequest();
     const authUser = request.user;
 
-    return (authUser!.role === Roles.ADMIN || requiredRoles.includes(authUser!.role));
+    return (
+      authUser!.role === Roles.ADMIN || requiredRoles.includes(authUser!.role)
+    );
   }
 }

@@ -1,4 +1,4 @@
-### create user
+### create admin
 POST http://localhost:3000/users
 Authorization: Bearer {{adminToken}}
 Content-Type: application/json
@@ -11,8 +11,34 @@ Content-Type: application/json
 }
 
 ###
+### create reader
+POST http://localhost:3000/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
 
+{
+    "name": "read",
+    "email": "read@user.com",
+    "password": "aaaa",
+    "role": "READER"
+}
 
+###
+
+###
+# @name readLogin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "read@user.com",
+    "password": "aaaa"
+}
+
+###
+@readToken = {{readLogin.response.body.access_token}}
+
+###
 
 GET http://localhost:3000/users
 Authorization: Bearer {{tokenLeo}}
@@ -64,16 +90,20 @@ Content-Type: application/json
 ###
 
 POST http://localhost:3000/posts
-Authorization: Bearer {{tokenLeo}}
+Authorization: Bearer {{adminToken}}
 Content-Type: application/json
 
 {
-    "title": "Post 2",
+    "title": "Post 20",
     "content": "Content two",
-    "published": true
+    "published": false
 }
 
 ###
 
 GET http://localhost:3000/posts
-Authorization: Bearer {{tokenLeo}}
+Authorization: Bearer {{adminToken}}
+
+###
+GET http://localhost:3000/posts/f5b53f07-34db-4151-a79d-8f4bd0411786
+Authorization: Bearer {{readToken}}
