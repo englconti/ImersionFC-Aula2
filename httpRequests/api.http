@@ -1,4 +1,6 @@
+### create admin
 POST http://localhost:3000/users
+Authorization: Bearer {{adminToken}}
 Content-Type: application/json
 
 {
@@ -6,6 +8,20 @@ Content-Type: application/json
     "email": "leo@user.com",
     "password": "aaaa",
     "role": "WRITER"
+}
+
+###
+
+### create reader
+POST http://localhost:3000/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "name": "Reader1",
+    "email": "reader1@user.com",
+    "password": "aaaa",
+    "role": "READER"
 }
 
 ###
