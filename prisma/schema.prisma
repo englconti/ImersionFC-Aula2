@@ -28,4 +28,16 @@ model User {
   role      Roles   @default(READER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Post      Post[]
 } 
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @db.Text
+  published Boolean  @default(false)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id]) // this is a relation between the Post and the User model -> this is a one to many relation -> one user can have many posts  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
