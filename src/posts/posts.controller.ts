@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -16,17 +26,16 @@ export class PostsController {
   @RequiredRoles(Roles.WRITER, Roles.EDITOR)
   create(@Body() createPostDto: CreatePostDto, @Req() req: Request) {
     // console.log(req.user)
-    console.log('---->', req.user)
     return this.postsService.create({
       ...createPostDto,
-      authorId: req.user!.id // !. is used to tell typescript that the user is not null -> its called non-null assertion
+      authorId: req.user!.id, // !. is used to tell typescript that the user is not null -> its called non-null assertion
     });
   }
 
   @Get()
   @RequiredRoles(Roles.WRITER, Roles.EDITOR, Roles.READER)
-  findAll(@Req() req: Request) {
-    return this.postsService.findAll(req.user!.id);
+  findAll() {
+    return this.postsService.findAll();
   }
 
   @RequiredRoles(Roles.WRITER, Roles.EDITOR, Roles.READER)
