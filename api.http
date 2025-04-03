@@ -11,7 +11,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb0B1c2VyLmNvbSIsIm5hbWUiOiJMZW8iLCJpYXQiOjE3NDM2NDMyMjAsImV4cCI6MTc0MzY1MDQyMH0.DFhTtHgXxwFdB-vgwFMIOe4QhPhi1CfXPngpgjs4vtc
+Authorization: Bearer {{tokenLeo}}
 
 ###
 
@@ -19,7 +19,33 @@ GET http://localhost:3000/users/f5b53f07-34db-4151-a79d-8f4bd0411786
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imxlb0B1c2VyLmNvbSIsIm5hbWUiOiJMZW8iLCJpYXQiOjE3NDM2NDMyMjAsImV4cCI6MTc0MzY1MDQyMH0.DFhTtHgXxwFdB-vgwFMIOe4QhPhi1CfXPngpgjs4vtc
 
 ###
+# @name adminLogin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
 
+{
+    "email": "admin@user.com",
+    "password": "admin"
+}
+
+###
+@adminToken = {{adminLogin.response.body.access_token}}
+
+###
+
+POST http://localhost:3000/posts
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "title": "Post 1",
+    "content": "Content one",
+    "published": true
+}
+
+
+###
+# @name LeoLogin
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
@@ -29,4 +55,21 @@ Content-Type: application/json
 }
 
 ###
+@tokenLeo = {{LeoLogin.response.body.access_token}}
 
+###
+
+POST http://localhost:3000/posts
+Authorization: Bearer {{tokenLeo}}
+Content-Type: application/json
+
+{
+    "title": "Post 2",
+    "content": "Content two",
+    "published": true
+}
+
+###
+
+GET http://localhost:3000/posts
+Authorization: Bearer {{tokenLeo}}
